@@ -1,44 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post Comment and Report</title>
+  <title>Post about Eight crazy night</title>
+  <style>
+    .post {
+      background-color: #f1f1f1;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
-    <h1>Post about Eight crazy night</h1>
+  <h1>Post about Eight crazy night</h1>
 
-    <!-- Form to submit comments -->
-    <form id="commentForm">
-        <label for="comment">post:</label><br>
-        <textarea id="comment" name="comment" rows="4" cols="50"></textarea><br>
-        <button type="submit">Post</button>
-    </form>
+  <form id="postForm">
+    <textarea id="postText" rows="4" cols="50" placeholder="Write your post here..."></textarea>
+    <br>
+    <button type="submit">Post</button>
+  </form>
 
-    <!-- Form to report posts -->
-    <form id="reportForm">
-        <label for="reportReason">Reason for reporting:</label><br>
-        <input type="text" id="reportReason" name="reportReason"><br>
-        <button type="submit">Report Post</button>
-    </form>
+  <div id="postContainer"></div>
 
-    <!-- JavaScript to handle form submissions -->
-    <script>
-        document.getElementById("commentForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent the default form submission
-            // Here you would handle the comment submission, possibly using AJAX to send data to the server
-            alert(" post submitted! this won't since I've tried looking everwhere for a way to do it but I can't find it so THIS WILL NOT WORK but heres some thing which I made According to all known laws of aviation, there is no way a bee should be able to fly. ");
-            // Reset the form
-            document.getElementById("commentForm").reset();
-        });
-
-        document.getElementById("reportForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent the default form submission
-            // Here you would handle the report submission, possibly using AJAX to send data to the server
-            alert("Post reported! nope does not work!!! ");
-            // Reset the form
-            document.getElementById("reportForm").reset();
-        });
-    </script>
+  <script>
+    document.getElementById("postForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      var postText = document.getElementById("postText").value;
+      if (postText.trim() !== "") {
+        var postElement = document.createElement("div");
+        postElement.className = "post";
+        postElement.textContent = postText;
+        document.getElementById("postContainer").appendChild(postElement);
+        document.getElementById("postText").value = "";
+      }
+    });
+  </script>
 </body>
 </html>
