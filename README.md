@@ -1,1 +1,1 @@
-This is joke Revival of tvii some how it works on 3ds
+Tvpc is a Revival of Nintendo Tvii that runs on browser
