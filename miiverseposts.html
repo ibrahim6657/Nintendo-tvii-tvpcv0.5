@@ -1,38 +1,48 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Post about Eight crazy night</title>
-  <style>
-    .post {
-      background-color: #f1f1f1;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
-  </style>
-</head>
+<<!DOCTYPE hmtl>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" 
+  </head>
 <body>
-  <h1>Post about Eight crazy night</h1>
+  <h3>
+    <span style="color: red;">TV</span> PC
+  </h3>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <a class="navbar-brand" 
+  </div>
+  </nav>
+  <div class="col-md-3"></div>
+  <div class="col-md-6 well">
+    <h3 class="text-primary">Post about eight crazy night</h3>
+    <hr style="border-top:1px dotted #ccc;"/>
+    <div class="col-md-8">
+      <div class="alert alert-info">Pls don't post anything bad </div>
+      <div id="result"></div>
+    </div>
+    <div class="col-md-4">
+      <form>
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="name" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>Content</label>
+          <textarea id="content" class="form-control" style="resize:none; height:150px;">
+          </textarea>
+        </div>
 
-  <form id="postForm">
-    <textarea id="postText" rows="4" cols="50" placeholder="Write your post here..."></textarea>
-    <br>
-    <button type="submit">Post</button>
-  </form>
+        <center><button type="button" class="btn btn-primary" onclick="postToPage();">post</button></center>
+      </form>
+    </div>
+  </div>
+  <p>
 
-  <div id="postContainer"></div>
 
-  <script>
-    document.getElementById("postForm").addEventListener("submit", function(event) {
-      event.preventDefault();
-      var postText = document.getElementById("postText").value;
-      if (postText.trim() !== "") {
-        var postElement = document.createElement("div");
-        postElement.className = "post";
-        postElement.textContent = postText;
-        document.getElementById("postContainer").appendChild(postElement);
-        document.getElementById("postText").value = "";
-      }
-    });
-  </script>
-</body>
+     <p>
+
+  </p>
+<script src="script.js"></script>	
+</body>	
 </html>
