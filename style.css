@@ -1,0 +1,67 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+}
+
+h1 {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.tv-guide {
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.channel-list {
+  width: 20%;
+  border-right: 1px solid #ddd;
+  padding-right: 10px;
+}
+
+.channel-list ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.channel-list li {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+.channel-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.schedule {
+  width: 80%;
+  padding-left: 20px;
+}
+
+.schedule-item {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  align-items: center;
+}
+
+.schedule-item .show-title {
+  font-size: 1.2em;
+  text-align: left;
+}
+
+.schedule-item .time, .schedule-item .channel {
+  font-size: 0.9em;
+  color: #555;
+  text-align: right;
+}
