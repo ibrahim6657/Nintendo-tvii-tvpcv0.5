@@ -6,89 +6,144 @@
     <title>UK TV Guide</title>
     <style>
         body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: row;
             text-align: center;
             font-family: Arial, sans-serif;
-            background-image: url('https://i.imgur.com/oQndYnh.png'); /* Background image */
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            color: #000;
+            background-color: #f0f0f0;
+            padding: 20px;
         }
 
         .tv-guide {
-            display: table;
-            width: 80%;
-            margin: 0 auto;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
+            display: flex;
+            width: 90%;
+            max-width: 1000px;
         }
 
-        .channel-list {
-            display: table-cell;
-            width: 30%;
-            padding-right: 20px;
-            vertical-align: top;
+        .channel-list, .schedule {
+            width: 50%;
+            margin: 10px;
         }
 
-        .schedule {
-            display: table-cell;
-            width: 70%;
+        h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
         }
 
         ul {
-            list-style-type: none;
+            list-style: none;
             padding: 0;
         }
 
         ul li {
             margin: 5px 0;
+            cursor: pointer;
             padding: 10px;
             background-color: #fff;
             border: 1px solid #ddd;
-            cursor: pointer;
+            border-radius: 4px;
         }
 
         ul li:hover {
-            background-color: #f0f0f0;
+            background-color: #e0e0e0;
         }
 
         .schedule-item {
-            background-color: #fff;
-            margin-bottom: 10px;
+            margin: 10px 0;
             padding: 10px;
-            border-radius: 5px;
+            background-color: #fff;
             border: 1px solid #ddd;
-        }
-
-        .show-title {
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-
-        .time, .channel {
-            font-size: 0.9em;
-            color: #555;
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
-    <h1><span style="color: red;">TV</span> Guide</h1>
+    <h1>UK TV Guide</h1>
     <div class="tv-guide">
         <div class="channel-list">
             <h2>Channels</h2>
             <ul id="channel-list">
-                <!-- Channels will be dynamically populated here -->
+                <!-- Channels will be populated here -->
             </ul>
         </div>
         <div class="schedule">
             <h2>Schedule</h2>
             <div id="schedule-container">
-                <!-- Schedule will be dynamically populated here -->
+                <!-- Schedule will be displayed here -->
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Function to fetch the UK TV schedule for a specific date
+        function getUkTvSchedule(date) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'https://api.tvmaze.com/schedule?country=GB&date=' + date, true);
+
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    var data = JSON.parse(xhr.responseText);
+                    console.log("Data fetched successfully:", data); // Log data for debugging
+                    populateChannels(data);
+                } else {
+                    alert("Error fetching data: " + xhr.status);
+                }
+            };
+
+            xhr.onerror = function() {
+                alert("Request failed. Please try again later.");
+            };
+
+            xhr.send();
+        }
+
+        // Function to populate the channel list
+        function populateChannels(data) {
+            var channelList = document.getElementById('channel-list');
+            channelList.innerHTML = ''; // Clear previous channels
+
+            var channels = {}; // Track unique channels
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                if (item.show.network && !channels[item.show.network.name]) {
+                    channels[item.show.network.name] = true;
+
+                    var li = document.createElement('li');
+                    li.textContent = item.show.network.name;
+                    li.onclick = (function(channelName) {
+                        return function() {
+                            filterByChannel(channelName, data);
+                        };
+                    })(item.show.network.name);
+
+                    channelList.appendChild(li);
+                }
+            }
+        }
+
+        // Function to filter shows by channel
+        function filterByChannel(channelName, data) {
+            var scheduleContainer = document.getElementById('schedule-container');
+            scheduleContainer.innerHTML = ''; // Clear previous schedule
+
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                if (item.show.network && item.show.network.name === channelName) {
+                    var div = document.createElement('div');
+                    div.className = 'schedule-item';
+                    div.innerHTML = `<strong>${item.show.name}</strong> - ${item.airtime}`;
+                    scheduleContainer.appendChild(div);
+                }
+            }
+        }
+
+        // Get today's date in YYYY-MM-DD format
+        var today = new Date().toISOString().split('T')[0];
+
+        // Fetch the schedule for today when the page loads
+        getUkTvSchedule(today);
+    </script>
 </body>
 </html>
