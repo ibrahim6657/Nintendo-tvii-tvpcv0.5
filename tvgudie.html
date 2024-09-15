@@ -4,12 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UK TV Guide</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-image: url('https://i.imgur.com/oQndYnh.png'); /* Background image */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: #000;
+        }
+
+        .tv-guide {
+            display: table;
+            width: 80%;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .channel-list {
+            display: table-cell;
+            width: 30%;
+            padding-right: 20px;
+            vertical-align: top;
+        }
+
+        .schedule {
+            display: table-cell;
+            width: 70%;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 5px 0;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        ul li:hover {
+            background-color: #f0f0f0;
+        }
+
+        .schedule-item {
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .show-title {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .time, .channel {
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
-    <h1>
-        <span style="color: red;">TV</span>Guide
-    </h1>
+    <h1><span style="color: red;">TV</span> Guide</h1>
     <div class="tv-guide">
         <div class="channel-list">
             <h2>Channels</h2>
