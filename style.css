@@ -3,7 +3,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  text-align: center;
+  text-align: left;
   min-height: 100vh;
   margin: 0;
   font-family: Arial, sans-serif;
