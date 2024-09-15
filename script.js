@@ -2,19 +2,24 @@
 function getUkTvSchedule(date) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'https://api.tvmaze.com/schedule?country=GB&date=' + date, true);
-    
+
     xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var data = JSON.parse(xhr.responseText);
-            populateChannels(data);
-            displaySchedule(data);
-        } else if (xhr.readyState === 4 && xhr.status !== 200) {
-            console.error('Failed to fetch data. Status code:', xhr.status);
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                var data = JSON.parse(xhr.responseText);
+                console.log("Data fetched successfully:", data); // Log data for debugging
+                populateChannels(data);
+                displaySchedule(data);
+            } else {
+                console.error('Failed to fetch data. Status code:', xhr.status);
+                alert("Error fetching data: " + xhr.status); // Alert error
+            }
         }
     };
 
     xhr.onerror = function() {
         console.error('Request failed');
+        alert("Request failed"); // Alert if there's a network error
     };
 
     xhr.send();
