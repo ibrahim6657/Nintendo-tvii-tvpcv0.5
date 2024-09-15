@@ -1,67 +1,73 @@
-html {
-  height: 100%;
-  width: 100%;
-}
 body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  min-height: 100vh;
+  margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #f8f8f8;
-}
-
-h1 {
-  text-align: left;
-  margin-bottom: 20px;
+  background-image: url('https://i.imgur.com/oQndYnh.png'); /* Background image */
+  background-size: cover; /* Make the background image cover the whole area */
+  background-repeat: no-repeat; /* Prevent the background image from repeating */
+  background-position: center; /* Center the background image */
 }
 
 .tv-guide {
   display: flex;
-  width: 90%;
-  margin: 0 auto;
-  background-color: #fff;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 80%; /* Adjust the width as needed */
+  background-color: rgba(255, 255, 255, 0.8); /* Light background for readability */
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .channel-list {
-  width: 20%;
-  border-right: 1px solid #ddd;
-  padding-right: 10px;
-}
-
-.channel-list ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.channel-list li {
-  padding: 10px;
-  cursor: pointer;
-  border-bottom: 1px solid #ddd;
-}
-
-.channel-list li:hover {
-  background-color: #f0f0f0;
+  width: 30%; /* 30% for the channel list */
+  padding-right: 20px;
+  border-right: 1px solid #ddd; /* Line between channels and schedule */
 }
 
 .schedule {
-  width: 80%;
+  width: 70%; /* 70% for the schedule */
   padding-left: 20px;
 }
 
-.schedule-item {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  margin: 5px 0;
+  cursor: pointer;
   padding: 10px;
-  border-bottom: 1px solid #ddd;
-  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
-.schedule-item .show-title {
+ul li:hover {
+  background-color: #f0f0f0;
+}
+
+.schedule-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.show-title {
   font-size: 1.2em;
-  text-align: left;
+  font-weight: bold;
 }
 
-.schedule-item .time, .schedule-item .channel {
+.time, .channel {
   font-size: 0.9em;
   color: #555;
-  text-align: right;
 }
