@@ -1,75 +1,67 @@
-// Function to get the TV schedule for a specific date using XMLHttpRequest (fetch not supported on Wii U)
-function getUkTvSchedule(date) {
-    var request = new XMLHttpRequest();
-    request.open('GET', 'https://api.tvmaze.com/schedule?country=GB&date=' + date, true);
-
-    request.onload = function() {
-        if (request.status >= 200 && request.status < 400) {
-            var data = JSON.parse(request.responseText);
-
-            // Populate channels and display the schedule
-            populateChannels(data);
-            displayUkSchedule(data);
-        } else {
-            console.error('Error fetching TV schedule');
-        }
-    };
-
-    request.onerror = function() {
-        console.error('Connection error');
-    };
-
-    request.send();
+html {
+  height: 100%;
+  width: 100%;
+}
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
 }
 
-// Function to populate the channel list
-function populateChannels(data) {
-    var channelList = document.getElementById('channel-list');
-    channelList.innerHTML = ''; // Clear previous channels
-
-    var channels = {}; // Track unique channels
-    for (var i = 0; i < data.length; i++) {
-        var item = data[i];
-        if (item.show.network && !channels[item.show.network.name]) {
-            channels[item.show.network.name] = true;
-            var li = document.createElement('li');
-            li.textContent = item.show.network.name;
-            li.addEventListener('click', (function(channelName) {
-                return function() {
-                    filterByChannel(channelName, data);
-                };
-            })(item.show.network.name));
-            channelList.appendChild(li);
-        }
-    }
+h1 {
+  text-align: left;
+  margin-bottom: 20px;
 }
 
-// Function to filter by channel
-function filterByChannel(channelName, data) {
-    var filteredData = data.filter(function(item) {
-        return item.show.network && item.show.network.name === channelName;
-    });
-    displayUkSchedule(filteredData);
+.tv-guide {
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-// Function to display the schedule
-function displayUkSchedule(data) {
-    var scheduleContainer = document.getElementById('schedule-container');
-    scheduleContainer.innerHTML = ''; // Clear previous data
-
-    for (var i = 0; i < data.length; i++) {
-        var item = data[i];
-        var scheduleItem = document.createElement('div');
-        scheduleItem.classList.add('schedule-item');
-
-        scheduleItem.innerHTML = '<div class="show-title">' + item.show.name + '</div>' +
-            '<div class="time">' + new Date('1970-01-01T' + item.airtime + 'Z').toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '</div>' +
-            '<div class="channel">' + (item.show.network ? item.show.network.name : 'Unknown') + '</div>';
-
-        scheduleContainer.appendChild(scheduleItem);
-    }
+.channel-list {
+  width: 20%;
+  border-right: 1px solid #ddd;
+  padding-right: 10px;
 }
 
-// Load today's schedule when the page loads
-var today = new Date().toISOString().split('T')[0];
-getUkTvSchedule(today);
+.channel-list ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.channel-list li {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+.channel-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.schedule {
+  width: 80%;
+  padding-left: 20px;
+}
+
+.schedule-item {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  align-items: center;
+}
+
+.schedule-item .show-title {
+  font-size: 1.2em;
+  text-align: left;
+}
+
+.schedule-item .time, .schedule-item .channel {
+  font-size: 0.9em;
+  color: #555;
+  text-align: right;
+}
